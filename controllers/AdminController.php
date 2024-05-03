@@ -29,14 +29,14 @@ class AdminController {
      * Affiche la page d'administration.
      * @return void
      */
-    public function showMonitoring() : void
+    public function showMonitoring($element = 'title', $order = 'ASC') : void
     {
         // On vérifie que l'utilisateur est connecté.
         $this->checkIfUserIsConnected();
 
         // On récupère les articles.
         $articleManager = new ArticleManager();
-        $articles = $articleManager->getAllArticles();
+        $articles = $articleManager->getAllArticlesSortByElement($element, $order);
         $comments = new ArticleManager();
 
         // On affiche la page d'administration.
@@ -198,5 +198,15 @@ class AdminController {
 
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
+    }
+
+        /**
+     * Suppression d'un article.
+     * @return void
+     */
+    public function deleteComment() : void
+    {
+        $this->checkIfUserIsConnected();
+        // à faire 
     }
 }
