@@ -6,15 +6,22 @@
 ?>
 
 <h2>Monitoring</h2>
+<?php
+$url = '';
+if (!str_ends_with(($_GET['action']), 'Desc')) {
+    $url = 'Desc';
+} 
 
-<div class="adminArticle">
+?>
+
+<div class="">
     <table>
         <thead>
-            <tr>
-                <th scope="col">Titre</th>
-                <th scope="col">Vues</th>
-                <th scope="col">Commentaires</th>
-                <th scope="col">Date de publication</th>
+            <tr>    
+                <th scope="col"><a href="index.php?action=monitoringByTitle<?php echo $url ?>">Titre</a></th>
+                <th scope="col"><a href="index.php?action=monitoringSortByViews<?php echo $url ?>">Vues</a></th>
+                <th scope="col"><a href="index.php?action=monitoringSortByComment<?php echo $url ?>">Commentaires</a></th>
+                <th scope="col"><a href="index.php?action=monitoringSortByDate<?php echo $url ?>">Date de publication</a></th>
             </tr>
         </thead>
         <tbody>
@@ -22,7 +29,7 @@
                 <tr>
                     <th scope="row"><?= $article->getTitle() ?></th>
                     <td><?= $article->getViews() ?></td>
-                    <td><p><?= $comments->getTotalCommentsByArticleId($article->getId()) ?></p></td>
+                    <td><p></p></td>
                     <td><?= ucfirst(Utils::convertDateToFrenchFormat($article->getDateCreation())) ?></td>
                 </tr>
             <?php } ?>
