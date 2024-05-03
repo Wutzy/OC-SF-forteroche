@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-class ArticleController 
+class ArticleController
 {
     /**
      * Affiche la page d'accueil.
@@ -26,11 +26,9 @@ class ArticleController
 
         $articleManager = new ArticleManager();
         $article = $articleManager->getArticleById($id);
-        //Add 1 view
-        //$articleManager->updateArticleViews($article);
-        var_dump($article->getViews());
-        
-        
+        //var_dump($article);die;
+        $articleManager->updateArticleViews($article);
+
         if (!$article) {
             throw new Exception("L'article demandé n'existe pas.");
         }
