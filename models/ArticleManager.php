@@ -3,7 +3,7 @@
 /**
  * Classe qui gère les articles.
  */
-class ArticleManager extends AbstractEntityManager 
+class ArticleManager extends AbstractEntityManager
 {
     /**
      * Récupère tous les articles.
@@ -20,7 +20,24 @@ class ArticleManager extends AbstractEntityManager
         }
         return $articles;
     }
-    
+
+    /**
+     * Récupère tous les articles ordonnés par titre 
+     * @return array : un tableau d'objets Article.
+     */
+    public function getAllArticlesSortByTitle() : array
+    {
+        $sql = "SELECT * FROM article";
+        $result = $this->db->query($sql);
+        $articles = [];
+
+        while ($article = $result->fetch()) {
+            $articles[] = new Article($article);
+        }
+        return $articles;
+    }
+
+
     /**
      * Récupère un article par son id.
      * @param int $id : l'id de l'article.
@@ -43,7 +60,7 @@ class ArticleManager extends AbstractEntityManager
      * @param Article $article : l'article à ajouter ou modifier.
      * @return void
      */
-    public function addOrUpdateArticle(Article $article) : void 
+    public function addOrUpdateArticle(Article $article) : void
     {
         if ($article->getId() == -1) {
             $this->addArticle($article);
@@ -76,16 +93,15 @@ class ArticleManager extends AbstractEntityManager
      */
     public function updateArticle(Article $article) : void
     {
-        $sql = "UPDATE article SET title = :title, content = :content, date_update = NOW(), views = :views WHERE id = :id";
+        $sql = "UPDATE article SET title = :title, content = :content, date_update = NOW() WHERE id = :id";
         $this->db->query($sql, [
             'title' => $article->getTitle(),
             'content' => $article->getContent(),
             'id' => $article->getId(),
-            'views' => $article->getViews()
 
         ]);
     }
-    
+
     /**
      * Modifie un article.
      * @param Article $article : l'article à modifier.
@@ -96,7 +112,7 @@ class ArticleManager extends AbstractEntityManager
         $sql = "UPDATE article SET views = :views WHERE id = :id";
         $this->db->query($sql, [
             'id' => $article->getId(),
-            'views' => $article->addView()
+            'views' => $article->getViews()
         ]);
     }
 

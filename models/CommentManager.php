@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Cette classe sert à gérer les commentaires. 
+ * Cette classe sert à gérer les commentaires.
  */
 class CommentManager extends AbstractEntityManager
 {
@@ -20,6 +20,21 @@ class CommentManager extends AbstractEntityManager
             $comments[] = new Comment($comment);
         }
         return $comments;
+    }
+
+    /**
+     * Récupère le nombre de commentaires d'un article.
+     * @param int $idArticle : l'id de l'article.
+     * @return int : nombre de commentaires.
+     */
+    public function getTotalCommentsByArticleId(int $idArticle) : int
+    {
+        $sql = "SELECT COUNT(*) AS total_comments FROM comment WHERE id_article = :idArticle";
+        $result = $this->db->query($sql, ['idArticle' => $idArticle]);
+        $row = $result->fetch();
+        $totalComments = $row["total_comments"];
+
+        return $totalComments;
     }
 
     /**
