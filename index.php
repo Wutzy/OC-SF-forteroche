@@ -46,9 +46,49 @@ try {
 
         case 'monitoring' :
             $adminController = new AdminController();
-            $adminController->showMonitoring();
+            $adminController->showMonitoring('title', 'ASC');
+            break;
+                
+        case 'monitoringByTitle' :
+            $adminController = new AdminController();
+            $adminController->showMonitoring('title', 'ASC');
             break;
 
+        case 'monitoringByTitleDesc' :
+            $adminController = new AdminController();
+            $adminController->showMonitoring('title', 'DESC');
+            break;
+
+        case 'monitoringSortByViews' :
+            $adminController = new AdminController();
+            $adminController->showMonitoring('views');
+            break;
+
+        case 'monitoringSortByViewsDesc' :
+            $adminController = new AdminController();
+            $adminController->showMonitoring('views', 'DESC');
+            break;
+        
+        case 'monitoringSortByDate' :
+            $adminController = new AdminController();
+            $adminController->showMonitoring('date_creation');
+            break;
+
+        case 'monitoringSortByDateDesc' :
+            $adminController = new AdminController();
+            $adminController->showMonitoring('date_creation', 'DESC');
+            break;
+
+        case 'monitoringSortByComment' :
+            $adminController = new AdminController();
+            $adminController->showMonitoring('comment');
+            break;            
+
+        case 'monitoringSortByCommentDesc' :
+            $adminController = new AdminController();
+            $adminController->showMonitoring('comments', 'DESC');
+            break;
+    
         case 'connectionForm':
             $adminController = new AdminController();
             $adminController->displayConnectionForm();
@@ -78,7 +118,12 @@ try {
             $adminController = new AdminController();
             $adminController->deleteArticle();
             break;
-
+        
+        case 'deleteComment':
+            $adminController = new AdminController();
+            $adminController->deleteComment();
+            break;
+        
         default:
             throw new Exception("La page demandée n'existe pas.");
     }
