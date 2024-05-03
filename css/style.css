@@ -262,6 +262,7 @@ a.info {
 
 .comments li {
     display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
 }
 
@@ -356,9 +357,20 @@ footer {
  */
 
 table {
+    text-align: center;
     border-collapse: collapse;
     border: 2px solid black;
     letter-spacing: 1px;
+    color: black;
+    background-color: none;
+}
+
+table > thead {
+    background-color: var(--commentPaleColor) !important;
+}
+
+tbody tr:nth-child(odd){
+    background-color: rgba(153, 161, 64, 0.7);
 }
 
 th, td {
@@ -370,3 +382,14 @@ td:last-of-type {
   text-align: center;
 }
 
+.btn-delete 
+{
+    display: flex;
+    margin-top: 5px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: red;
+    padding: 5px;
+}
