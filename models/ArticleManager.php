@@ -25,9 +25,9 @@ class ArticleManager extends AbstractEntityManager
      * Récupère tous les articles ordonnés par titre 
      * @return array : un tableau d'objets Article.
      */
-    public function getAllArticlesSortByTitle() : array
+    public function getAllArticlesSortByElement(string $element, string $order) : array
     {
-        $sql = "SELECT * FROM article";
+        $sql = "SELECT * FROM article ORDER BY $element $order";
         $result = $this->db->query($sql);
         $articles = [];
 
