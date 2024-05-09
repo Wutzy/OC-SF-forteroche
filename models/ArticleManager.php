@@ -5,6 +5,11 @@
  */
 class ArticleManager extends AbstractEntityManager
 {
+    const COLUMNS = [
+        'order' => 'ASC',
+        'order' => 'DESC'
+    ];
+
     /**
      * Récupère tous les articles.
      * @return array : un tableau d'objets Article.
@@ -22,12 +27,12 @@ class ArticleManager extends AbstractEntityManager
     }
 
     /**
-     * Récupère tous les articles ordonnés par titre 
+     * Récupère tous les articles ordonnés par une colone (titre, nombre de vues, nombre de commentaires, date de création)
      * @return array : un tableau d'objets Article.
      */
-    public function getAllArticlesSortByElement(string $element, string $order) : array
+    public function getArticles(string $column, string $order) : array
     {
-        $sql = "SELECT * FROM article ORDER BY $element $order";
+        $sql = "SELECT * FROM article ORDER BY $column $order";
         $result = $this->db->query($sql);
         $articles = [];
 
