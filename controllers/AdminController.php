@@ -29,20 +29,22 @@ class AdminController {
      * Affiche la page d'administration.
      * @return void
      */
-    public function showMonitoring($element = 'title', $order = 'ASC') : void
+    public function showMonitoring($column = 'title', $order = 'ASC') : void
     {
         // On vérifie que l'utilisateur est connecté.
         $this->checkIfUserIsConnected();
 
         // On récupère les articles.
         $articleManager = new ArticleManager();
-        $articles = $articleManager->getAllArticlesSortByElement($element, $order);
+        $articles = $articleManager->getArticles($column, $order);
         $comments = new ArticleManager();
 
         // On affiche la page d'administration.
         $view = new View("Monitoring");
         $view->render("monitoring", [
             'articles' => $articles,
+            'column' => $column,
+            'order' => $order,
             'comments' => $comments
         ]);
     }
@@ -207,6 +209,6 @@ class AdminController {
     public function deleteComment() : void
     {
         $this->checkIfUserIsConnected();
-        // à faire 
+        // à faire
     }
 }
