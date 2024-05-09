@@ -6,22 +6,21 @@
 ?>
 
 <h2>Monitoring</h2>
-<?php
-$url = '';
-if (!str_ends_with(($_GET['action']), 'Desc')) {
-    $url = 'Desc';
-} 
-
-?>
 
 <div class="">
     <table>
         <thead>
-            <tr>    
-                <th scope="col"><a href="index.php?action=monitoringByTitle<?php echo $url ?>">Titre</a></th>
-                <th scope="col"><a href="index.php?action=monitoringSortByViews<?php echo $url ?>">Vues</a></th>
-                <th scope="col"><a href="index.php?action=monitoringSortByComment<?php echo $url ?>">Commentaires</a></th>
-                <th scope="col"><a href="index.php?action=monitoringSortByDate<?php echo $url ?>">Date de publication</a></th>
+            <tr>
+                <?php foreach (ArticleManager::COLUMNS as $filterColumn => $filterOrder):
+                if ($column != $filterColumn && $order != $filterOrder):
+                    echo
+                        '<th scope="col"><a href="index.php?action=monitoring&column=' . $filterColumn .'&order=' . $filterOrder . '">Titre</a></th>
+                        <th scope="col"><a href="index.php?action=monitoring">Vues</a></th>
+                        <th scope="col"><a href="index.php?action=monitoring">Commentaires</a></th>
+                        <th scope="col"><a href="index.php?action=monitoring">Date de publication</a></th>';
+                endif;
+                endforeach; ?>
+
             </tr>
         </thead>
         <tbody>
