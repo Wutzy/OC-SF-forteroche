@@ -37,7 +37,6 @@ try {
             $commentController->addComment();
             break;
 
-
         // Section admin & connexion.
         case 'admin':
             $adminController = new AdminController();
@@ -46,49 +45,30 @@ try {
 
         case 'monitoring' :
             $adminController = new AdminController();
-            $adminController->showMonitoring('title', 'ASC');
-            break;
-                
-        case 'monitoringByTitle' :
-            $adminController = new AdminController();
-            $adminController->showMonitoring('title', 'ASC');
-            break;
-
-        case 'monitoringByTitleDesc' :
-            $adminController = new AdminController();
-            $adminController->showMonitoring('title', 'DESC');
-            break;
-
-        case 'monitoringSortByViews' :
-            $adminController = new AdminController();
-            $adminController->showMonitoring('views');
-            break;
-
-        case 'monitoringSortByViewsDesc' :
-            $adminController = new AdminController();
-            $adminController->showMonitoring('views', 'DESC');
+            $adminController->showMonitoring();
             break;
         
-        case 'monitoringSortByDate' :
+        case 'monitoringSorted' :
             $adminController = new AdminController();
-            $adminController->showMonitoring('date_creation');
-            break;
 
-        case 'monitoringSortByDateDesc' :
-            $adminController = new AdminController();
-            $adminController->showMonitoring('date_creation', 'DESC');
-            break;
+            // Création d'un tableau de valeurs acceptées
+            $allowed_columns = ['title', 'views', 'comments', 'date_creation'];
+            $allowed_order = ['ASC', 'DESC'];
 
-        case 'monitoringSortByComment' :
-            $adminController = new AdminController();
-            $adminController->showMonitoring('comment');
-            break;            
+            // Récupération de la valeur de column & order
+            $column = Utils::request('column');
+            $order = Utils::request('order');
 
-        case 'monitoringSortByCommentDesc' :
-            $adminController = new AdminController();
-            $adminController->showMonitoring('comments', 'DESC');
+            // Vérification des valeurs fournies dans le get en les comparant avec les valeurs autorisées
+            if (in_array($column, $allowed_columns) && in_array($order, $allowed_order))
+            {
+                $adminController->showMonitoring($column, $order);
+            }
+            else {
+                die('Bye World');
+            }           
             break;
-    
+                  
         case 'connectionForm':
             $adminController = new AdminController();
             $adminController->displayConnectionForm();
