@@ -29,7 +29,7 @@ class AdminController {
      * Affiche la page d'administration.
      * @return void
      */
-    public function showMonitoring($column = 'title', $order = 'ASC') : void
+    public function showMonitoring(string $column = 'title', string $order = 'DESC') : void
     {
         // On vérifie que l'utilisateur est connecté.
         $this->checkIfUserIsConnected();
@@ -202,13 +202,29 @@ class AdminController {
         Utils::redirect("admin");
     }
 
-        /**
-     * Suppression d'un article.
+    /**
+     * Suppression d'un commentaire.
      * @return void
      */
     public function deleteComment() : void
     {
         $this->checkIfUserIsConnected();
-        // à faire
+        
+        $id = Utils::request("id", -1);
+
+        // On récupère le commentaire grâce à l'id.
+        $commentManager = new CommentManager();
+        $comment = $commentManager->getCommentById($id);
+
+        //on récupère l'id de l'article pour la redirection
+        $article_id = $comment->getIdArticle();
+
+        // On supprime le commentaire
+        $commentManager->deleteComment($comment);
+
+        // On redirige vers la page de l'article actuel.
+        Utils::redirect("showArticle", [
+            'id' => $article_id
+        ]);
     }
 }
