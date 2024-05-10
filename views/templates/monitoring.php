@@ -7,18 +7,22 @@
 
 <h2>Monitoring</h2>
 
-<div class="">
+<div>
     <table>
         <thead>
             <tr>
                 <?php foreach (ArticleManager::COLUMNS as $filterColumn => $filterOrder):
-                if ($column != $filterColumn && $order != $filterOrder):
-                    echo
-                        '<th scope="col"><a href="index.php?action=monitoring&column=' . $filterColumn .'&order=' . $filterOrder . '">Titre</a></th>
-                        <th scope="col"><a href="index.php?action=monitoring">Vues</a></th>
-                        <th scope="col"><a href="index.php?action=monitoring">Commentaires</a></th>
-                        <th scope="col"><a href="index.php?action=monitoring">Date de publication</a></th>';
-                endif;
+                echo '<th scope="col">';
+                //var_dump($order, $filterOrder);
+                    if ($order != $filterOrder)
+                    {   
+                        echo '<a href="index.php?action=monitoringSorted&column=' . $filterColumn .'&order=' . $filterOrder . '">' . $filterColumn . '</a>'; 
+                    }                           
+                    else {
+                        echo '<a href="index.php?action=monitoringSorted&column=' . $filterColumn .'&order=DESC">' . $filterColumn . '</a>'; 
+                    }
+                    
+                echo '</th>';
                 endforeach; ?>
 
             </tr>
