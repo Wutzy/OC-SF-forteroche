@@ -37,8 +37,8 @@ class AdminController {
         // On récupère les articles.
         $articleManager = new ArticleManager();
         $articles = $articleManager->getArticles($column, $order);
-        $comments = new ArticleManager();
-
+        $comments = new CommentManager();
+        
         // On affiche la page d'administration.
         $view = new View("Monitoring");
         $view->render("monitoring", [
