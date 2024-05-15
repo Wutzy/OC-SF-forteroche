@@ -52,7 +52,7 @@ try {
             $adminController = new AdminController();
 
             // Création d'un tableau de valeurs acceptées
-            $allowed_columns = ['title', 'views', 'comments', 'date_creation'];
+            $allowed_columns = ['title', 'views', 'comment_count', 'date_creation'];
             $allowed_order = ['ASC', 'DESC'];
 
             // Récupération de la valeur de column & order
