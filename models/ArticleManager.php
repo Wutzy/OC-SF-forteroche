@@ -6,10 +6,10 @@
 class ArticleManager extends AbstractEntityManager
 {
     const COLUMNS = [
-        'title' => 'ASC',
-        'views' => 'ASC',
-        'comments' => 'ASC',  
-        'date_creation' => 'ASC',    
+        'title' => 'Titre',
+        'views' => 'Vues',
+        'comment_count' => 'Commentaires',  
+        'date_creation' => 'Date de création',    
     ];  
 
     /**
@@ -19,6 +19,7 @@ class ArticleManager extends AbstractEntityManager
     public function getAllArticles() : array
     {
         $sql = "SELECT * FROM article";
+
         $result = $this->db->query($sql);
         $articles = [];
 
@@ -34,7 +35,7 @@ class ArticleManager extends AbstractEntityManager
      */
     public function getArticles(string $column = 'title', string $order = 'desc') : array
     {
-        $sql = "SELECT * FROM article ORDER BY $column $order";
+        $sql = "SELECT a.id, a.title, a.content, a.views, a.date_creation, COUNT(c.id) AS comment_count FROM article a LEFT JOIN comment c ON a.id = c.id_article GROUP BY a.id, a.title ORDER BY $column $order";
         $result = $this->db->query($sql);
         $articles = [];
 
@@ -43,7 +44,6 @@ class ArticleManager extends AbstractEntityManager
         }
         return $articles;
     }
-
 
     /**
      * Récupère un article par son id.
